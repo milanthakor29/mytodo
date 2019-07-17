@@ -10,7 +10,8 @@ import styled from 'styled-components';
 
 
 class TabView extends Component
-    {
+    
+{
         handleDelete=(key)=>{
         this.props.deleteTodo(key);
         }
@@ -24,13 +25,16 @@ class TabView extends Component
     }
       
     render(){
+        
         return(
               <Tabs defaultActiveKey="AllTask" id="tab-example">
   <Tab eventKey="AllTask" title="All-Tasks">
      {
         <div>   
 {
+    this.props.todo.length>0 && this.props.todo.filter(todo=>!todo.isRemoved).length>0 ?
      this.props.todo.length>0 && this.props.todo.filter(todo=>!todo.isRemoved).map(todo=>(
+            
             <TaskList key={todo.id} style={{
                 width:"100%",
                 textAlign:'left',
@@ -45,6 +49,11 @@ class TabView extends Component
                <Button 
                   variant='light'
                         onClick={()=>this.handleDelete(todo.id)}>x</Button></TaskList>))
+                        :<h4 style={{
+                            textAlign:"left",
+                            paddingLeft:"15px"
+                          
+                        }}>No Items Available</h4>
     
                     }
                     </div>             }
@@ -54,7 +63,10 @@ class TabView extends Component
 
       {
           <ListGroup>{
-          this.props.todo.length>0 && this.props.todo.filter(todo=>!todo.isChecked && !todo.isRemoved).map(todo=>(
+              
+          this.props.todo.length>0 && this.props.todo.filter(todo=>!todo.isChecked && !todo.isRemoved).length > 0 ?
+          
+          this.props.todo.filter(todo=>!todo.isChecked && !todo.isRemoved).map(todo=>(
             <TaskList key={todo.id} style={{
                 width:"100%",
                 textAlign:'left',
@@ -70,6 +82,12 @@ class TabView extends Component
                 <Button 
                 variant='light'
                           onClick={()=>this.handleDelete(todo.id)}>x</Button></TaskList>))
+                          : <h4 style={{
+                              textAlign:"left",
+                              paddingLeft:"15px"
+                            
+                          }}>No Items Available</h4>
+
      }
      </ListGroup>
     }
@@ -78,9 +96,12 @@ class TabView extends Component
   <Tab eventKey="DoneTask" title="DoneTasks" >
 
   {
+      
+
       <ListGroup>
-         {  
+         {  this.props.todo.length>0 && this.props.todo.filter(todo=>todo.isChecked && !todo.isRemoved).length>0 ?
                this.props.todo.length>0 && this.props.todo.filter(todo=>todo.isChecked && !todo.isRemoved).map(todo=>(
+                   
             <TaskList key={todo.id} style={{
                 width:"100%",
                 textAlign:'left',
@@ -96,8 +117,14 @@ class TabView extends Component
                 <Button 
                 variant='light'
                           onClick={()=>this.handleDelete(todo.id)}>x</Button></TaskList>))
+                            :<h4 style={{
+                                textAlign:"left",
+                                paddingLeft:"15px"
+                              
+                            }}>No Items Available</h4>
      }
      </ListGroup>
+
     }
  </Tab>
 </Tabs>
